@@ -1,0 +1,11 @@
+{
+  "name": "flfe-blog",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/776488326/FLFE.git",
+  "author": "fengliang <fengliang.autohome.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node ./bin/www"
+  }
+}
