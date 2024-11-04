@@ -17,7 +17,7 @@ export class CreatePostDto {
     @IsJSON()
     body: Record<string, any> | null;
 
-    @ApiProperty({ description: "文章作者ID", example: "5f8a9a9a9a9a9a9a9a9a9a9a" })
+    @ApiProperty({ description: "文章作者ID", example: "admin" })
     @IsString()
     @IsNotEmpty()
     authorId: string;
@@ -26,5 +26,10 @@ export class CreatePostDto {
     @IsBoolean({message: "publish must be a boolean"})
     @IsNotEmpty()
     publish: boolean;
+
+    @ApiProperty({ description: "文章分类", example: "vue"})
+    @IsString()
+    @IsNotEmpty()
+    categoryId: string;
 }
 

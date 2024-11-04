@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, Query } from '@nestjs/common';
 import { PostService } from './post.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
@@ -14,8 +14,8 @@ export class PostController {
 
   @Get()
   @HttpCode(200)
-  findAll() {
-    return this.postService.findAll();
+  findAll(@Query('search') search: any) {
+    return this.postService.findAll(search);
   }
 
   @Get(':id')

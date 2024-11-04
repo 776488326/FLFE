@@ -8,14 +8,19 @@ generator client {
 }
 
 model Post {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  slug      String   @unique
-  title     String
-  body      Json
-  author    User?    @relation(fields: [authorId], references: [id])
-  authorId  String   @db.ObjectId
-  publish   Boolean  @default(false)
-  createdAt DateTime @default(now())
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  slug       String    @unique
+  title      String
+  body       String
+  keyWords   String[]  @default([])
+  image      String?
+  category   Category? @relation(fields: [categoryId], references: [id])
+  categoryId String?   @db.ObjectId
+  views      Int       @default(0)
+  author     User?     @relation(fields: [authorId], references: [id])
+  authorId   String?   @db.ObjectId
+  publish    Boolean   @default(false)
+  createdAt  DateTime  @default(now())
 }
 
 model User {
@@ -25,4 +30,10 @@ model User {
   address  String?
   password String
   posts    Post[]
+}
+
+model Category {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  name  String @unique
+  posts Post[]
 }
