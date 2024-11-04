@@ -15,7 +15,7 @@
 4. 个人项目
 
 #### 技术架构
-1. Nextjs
+1. Next js
 2. React
 3. Tailwindcss
 4. TypeScript

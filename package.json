@@ -1,11 +1,18 @@
 {
   "name": "flfe-blog",
   "version": "1.0.0",
+  "private": true,
   "main": "index.js",
   "repository": "https://github.com/776488326/FLFE.git",
   "author": "fengliang <fengliang.autohome.com>",
   "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "lerna run start"
+  },
+  "dependencies": {
+    "lerna": "^8.1.9"
   }
 }
