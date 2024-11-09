@@ -14,8 +14,7 @@ export class CreatePostDto {
     slug: string;
 
     @ApiProperty({ description: "文章内容", example: "Hello World" })
-    @IsJSON()
-    body: Record<string, any> | null;
+    body: string;
 
     @ApiProperty({ description: "文章作者ID", example: "admin" })
     @IsString()

@@ -24,7 +24,7 @@ const PreviewCard = ({post}: {post: IPost}) => {
                 <span className='text-16-medium'>{views}</span>
             </div>
         </div>
-        <div className='flex-between mt-5 gap-5'>
+        <div className='flex-between mt-5 gap-5 overflow-hidden'>
             <div className='flex-1'>
                 <Link href={`/user/${authorId}`}>
                     <p className='text-16-medium line-clamp-1'>
@@ -32,7 +32,7 @@ const PreviewCard = ({post}: {post: IPost}) => {
                     </p>
                 </Link>
                 <Link href={`/post/${id}`}>
-                    <h3 className='text-26-semibold'>
+                    <h3 className='text-26-semibold text-ellipsis text-nowrap'>
                         {title}
                     </h3>
                 </Link>

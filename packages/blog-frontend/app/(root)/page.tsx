@@ -1,5 +1,6 @@
-import PreviewCard from "@/components/PreviewCard";
-import SearchForm from "@/components/SearchForm";
+import React from "react";
+import PreviewCard from "../../components/PreviewCard";
+import SearchForm from "../../components/SearchForm";
 export interface IPost {
   id: string,
   createdAt: Date,
@@ -17,21 +18,7 @@ export interface IPost {
 }
 
 export default async function Home({searchParams}:{searchParams: Promise<{search?: string}>}) {
-  let posts : Array<IPost> = [{
-    id: '1',
-    createdAt: new Date(),
-    title: '测试文章',
-    slug: 'test-author',
-    description: '这是第一篇测试文章',
-    category: 'React',
-    image: '/preview.png',
-    author: {
-      id: '1',
-      name: '冯亮',
-      avatar: ''
-    },
-    views: 10
-  }];
+  let posts : Array<IPost> = [];
 
   function formatPost(data : Array<any>): Array<IPost> {
     return data.map(item => {
@@ -40,7 +27,7 @@ export default async function Home({searchParams}:{searchParams: Promise<{search
         createdAt: item.createdAt,
         title: item.title,
         slug: item.slug,
-        description: item.body,
+        description: item.slug,
         category: item.category,
         image: item.image || '/preview.png',
         author: {
@@ -54,20 +41,13 @@ export default async function Home({searchParams}:{searchParams: Promise<{search
   }
 
   const search = (await searchParams).search;
-  if(search) {
-    const res = await fetch(`http://localhost:3000/post?search=${search}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then(res => res.json());
-    console.log('res',res);
-    posts = formatPost(res);
-  }
-  
-
-
-
+  const res = await fetch(`http://localhost:3000/post${search ? '?search=' + search: ''}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }).then(res => res.json());
+  posts = formatPost(res);
   return (
     <>
       <section className="pink_container">

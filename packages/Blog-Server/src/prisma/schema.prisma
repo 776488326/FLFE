@@ -15,10 +15,10 @@ model Post {
   keyWords   String[]  @default([])
   image      String?
   category   Category? @relation(fields: [categoryId], references: [id])
-  categoryId String?   @db.ObjectId
+  categoryId String    @db.ObjectId
   views      Int       @default(0)
   author     User?     @relation(fields: [authorId], references: [id])
-  authorId   String?   @db.ObjectId
+  authorId   String    @db.ObjectId
   publish    Boolean   @default(false)
   createdAt  DateTime  @default(now())
 }
@@ -29,6 +29,7 @@ model User {
   name     String  @unique
   address  String?
   password String
+  image    String?
   posts    Post[]
 }
 

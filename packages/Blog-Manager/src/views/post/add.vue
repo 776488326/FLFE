@@ -4,21 +4,24 @@ import { useUserInfo } from '@/stores/counter';
 import Vditor from 'vditor';
 import request from '@/lib/request'
 import { useRoute, useRouter } from 'vue-router';
+import { ElMessage } from 'element-plus'
 let userInfo = useUserInfo();
 let route = useRoute();
 let router = useRouter();
-const form = reactive({
+const form:any = reactive({
     id: '',
     title: '',
     slug: '',
     publish: false,
     body: '',
-    authorId: ''
+    authorId: '',
+    categoryId: ''
 });
-let vditor = ref(null);
+let vditor = ref();
+let categoryData = ref([]);
 
 onMounted(() => {
-    vditor = new Vditor('vditor', {
+    vditor.value = new Vditor('vditor', {
         height: 600,
         mode: "sv", // 仅显示源码模式和实时预览模式
         lang: "zh_CN", // 设置语言为中文
@@ -63,22 +66,36 @@ onMounted(() => {
             vditor.setValue(res.data.body); 
         })
     }
+
+    getCategoryData();
 })
 function onSubmit() {
-    form.body = vditor.getValue();
-    form.authorId = userInfo.info.id;
+    form.body = vditor.value.getValue();
+    form.authorId = userInfo.info?.id || "";
     // TODO: 提交表单
     if (form.id) {
         let params = {...form};
         delete params.id;
         request.patch(`/api/post/${form.id}`, params).then(res => {
-            $message
+            ElMessage.success({
+                message: "添加成功",
+            })
         })
     } else {
         request.post('/api/post', form).then(res => {
             router.push('/post')
         })
     }
+}
+
+async function getCategoryData() {
+    let res = await fetch("/api/category", {
+        method: "GET",
+        headers: {
+            "Content-Type": "text/json"
+        }
+    }).then(res => res.json());
+    categoryData.value = res || null;
 }
 
 </script>
@@ -96,6 +113,11 @@ function onSubmit() {
                 <el-form-item label="发布" prop="publish">
                     <el-switch v-model="form.publish" :active-value="true" :inactive-value="false" active-text="是" inactive-text="否">
                     </el-switch>
+                </el-form-item>
+                <el-form-item label="分类" prop="category">
+                    <el-radio-group v-model="form.categoryId">
+                        <el-radio v-for="(item, index) in categoryData" :key="index" :value="item.id">{{ item.name }}</el-radio>
+                    </el-radio-group>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="onSubmit">{{form.id ? '修改': '新增'}}</el-button>

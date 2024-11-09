@@ -5,7 +5,27 @@ import { auth, signIn, signOut } from '../app/auth'
 
 const Navbar = async() => {
   const session = await auth();
-
+  const users = await fetch('http://localhost:3000/user', {
+    method: "GET",
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }).then(res =>res.json());
+  if(session?.user && users.every((item:any) => item.name !== session.user?.name)) {
+    // 注册用户
+    fetch('http://localhost:3000/user', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        ...session.user,
+        password: session.user.name
+      })
+    }).then(res =>res.json()).then(res =>{
+      console.log('res',res);
+    })
+  }
   return (
     <header className='px-5 py-3 shadow-sm font-work-sans font-[900] bg-gray'>
       <nav className='flex justify-between items-center'>
