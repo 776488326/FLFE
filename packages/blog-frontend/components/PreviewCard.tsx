@@ -1,10 +1,9 @@
 import { EyeIcon } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
-import { IPost } from '@/app/(root)/page'
 import { Button } from './ui/button'
 
-const PreviewCard = ({post}: {post: IPost}) => {
+const PreviewCard = ({post}) => {
   const { id, title, author: {id: authorId, name}, views, category, createdAt, description, image, slug } = post;
   function formatDate(params:Date) {
     return new Date(params).toLocaleDateString('zh-CN', {
@@ -32,14 +31,14 @@ const PreviewCard = ({post}: {post: IPost}) => {
                     </p>
                 </Link>
                 <Link href={`/post/${id}`}>
-                    <h3 className='text-26-semibold text-ellipsis text-nowrap'>
+                    <h3 className='text-26-semibold text-ellipsis whitespace-nowrap overflow-hidden'>
                         {title}
                     </h3>
                 </Link>
             </div>
         </div>
         <Link href={`/post/${id}`}>
-            <p className='startup-card-desc'>
+            <p className='startup-card-desc text-ellipsis whitespace-nowrap overflow-hidden'>
                 {description}
             </p>
             <img src={image} alt='placeholder' className='startup-card_img' />
