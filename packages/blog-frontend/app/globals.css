@@ -220,3 +220,20 @@
 .w-md-editor-toolbar {
     padding: 10px !important;
 }
+
+@keyframes glow {
+    0% {
+      text-shadow: 0 0 5px rgba(251, 232, 67, 0.6), 0 0 10px rgba(251, 232, 67, 0.6), 0 0 15px rgba(251, 232, 67, 0.6);
+    }
+    50% {
+      text-shadow: 0 0 10px rgba(251, 232, 67, 1), 0 0 20px rgba(251, 232, 67, 1), 0 0 30px rgba(251, 232, 67, 1);
+    }
+    100% {
+      text-shadow: 0 0 5px rgba(251, 232, 67, 0.6), 0 0 10px rgba(251, 232, 67, 0.6), 0 0 15px rgba(251, 232, 67, 0.6);
+    }
+  }
+  
+  .glow-animation {
+    @apply inline-block; /* 使用 Tailwind 的类 */
+    animation: glow 2s ease-in-out infinite; /* 设置动画 */
+  }

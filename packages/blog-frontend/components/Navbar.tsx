@@ -27,7 +27,7 @@ const Navbar = async() => {
     })
   }
   return (
-    <header className='px-5 py-3 shadow-sm font-work-sans font-[900] bg-gray'>
+    <header className='px-5 py-3 shadow-sm font-work-sans font-[900] bg-gray sticky top-0 z-10'>
       <nav className='flex justify-between items-center'>
         <Link href='/'>
           <Image src={'/logo.png'} alt='logo' width={48} height={48} />
@@ -45,8 +45,8 @@ const Navbar = async() => {
                   }}>
                   <button type='submit'>退出</button>
                 </form>
-                <Link href={`/user/${session?.user?.id}`}>
-                  <li>{session?.user?.name}</li>
+                <Link href={`/user`}>
+                  <li className='cursor-pointer text-amber-900 glow-animation font-bold'>{session?.user?.name}</li>
                 </Link>
               </>
             ) : (
@@ -57,7 +57,6 @@ const Navbar = async() => {
                 <button type="submit">登录</button>
               </form>
             )
-
           }
         </ul>
       </nav>
